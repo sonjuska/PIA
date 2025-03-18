@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nastavnik</title>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Nastavnik</h1>
+            <button class="btn btn-danger btn-logout" (click)="odjava()">Odjava</button>
+        </div>
+        <div class="mb-4 text-center">
+            <h2>{{korisnik.ime}} {{korisnik.prezime}} ({{korisnik.korime}})</h2>
+        </div>
+<div>
+    <h3>Aktivnosti</h3>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Naziv</th>
+                <th>Datum i vreme</th>
+                <th>Napravio</th>
+                <th>Status</th>
+                <th></th>
+                <th>Sala1</th>
+                <th>Sala2</th>
+                <th>Sala3</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (a of aktivnosti; track a.id) {
+                <tr>
+                    <td>{{a.id}}</td>
+                    <td>{{a.naziv}}</td>
+                    <td>{{a.datum_vreme}}</td>
+                    <td>{{a.napravio}}</td>
+                    <td [style.background-color]="status(a.status)">{{a.status}}</td>
+                    <td><button class="btn btn-primary" (click)="promeniStatus(a.status,a.id)">Promeni status</button></td>
+                    @if (a.sala1>-1) {<td>{{a.sala1}}</td>}
+                    @if (a.sala2>-1) {<td>{{a.sala2}}</td>}
+                    @if (a.sala3>-1) {<td>{{a.sala3}}</td>}
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <h2 class="text-center mb-4">Dodaj novu aktivnost</h2>
+    <div class="mb-3">
+        <label class="form-label">Naziv</label>
+        <input type="text" class="form-control" [(ngModel)]="naziv" placeholder="Unesite naziv aktivnosti">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Datum i vreme odrzavanja</label>
+        <input type="text" class="form-control" [(ngModel)]="datumVreme" placeholder="Unesite datum i vreme odrzavanja">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Sale</label><br>
+        <input type="checkbox" id="sala1" [(ngModel)]="sala1" value="Sala1">Sala 1
+        <input type="checkbox" id="sala2" [(ngModel)]="sala2" value="Sala2">Sala 2
+        <input type="checkbox" id="sala3" [(ngModel)]="sala3" value="Sala3">Sala 3
+
+    </div>
+    <p class="text-danger text-center">{{this.poruka}}</p>
+    <button class="btn btn-primary" (click)="dodaj()">Dodaj aktivnost</button>
+</div>

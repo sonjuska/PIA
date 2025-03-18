@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f8f9fa;
+}
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.form-control:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #007bff;
+}
+.btn-primary {
+    width: 100%;
+}
+.btn-logout {
+    float: right;
+}
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+.status {
+    color: red;
+    font-weight: bold;
+}
+.btn-primary:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+}

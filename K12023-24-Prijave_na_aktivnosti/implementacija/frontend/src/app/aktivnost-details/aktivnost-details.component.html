@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktivnost</title>
+
+</head>
+<body>
+    <div class="container text-center">
+        <h2 class="mb-4">{{ aktivnost.naziv }}</h2>
+        @if (aktivnost) {
+            <div class="mb-3">
+                <p><strong>Datum i vreme:</strong> {{ aktivnost.datum_vreme }}</p>
+            </div>
+            <div>
+                <h4>Sale</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        @if (aktivnost.sala1!=-1) {
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary" (click)="prijaviSeNaAktivnost('Sala1')" [disabled]="disabled1">
+                                        Sala 1 ({{ aktivnost.sala1 }})
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                        @if (aktivnost.sala2!=-1) {
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary" (click)="prijaviSeNaAktivnost('Sala2')" [disabled]="disabled2">
+                                        Sala 2 ({{ aktivnost.sala2 }})
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                        @if (aktivnost.sala3!=-1) {
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary" (click)="prijaviSeNaAktivnost('Sala3')" [disabled]="disabled3">
+                                        Sala 3 ({{ aktivnost.sala3 }})
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3 class="text-danger">{{poruka}}</h3>
+            </div>
+        } @else {
+            <h3 class="text-danger">{{ poruka }}</h3>
+        }
+    </div>
+</body>
+</html>

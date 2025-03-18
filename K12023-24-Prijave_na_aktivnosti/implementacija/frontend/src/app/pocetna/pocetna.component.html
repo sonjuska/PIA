@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Početna</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Prijava na aktivnosti</h1>
+        <div class="login-container">
+            <h2 class="text-center mb-4">Ulogujte se</h2>
+            <div class="mb-3">
+                <label class="form-label">Korisničko ime</label>
+                <input type="text" class="form-control" [(ngModel)]="korime" placeholder="Unesite korisničko ime">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Lozinka</label>
+                <input type="password" class="form-control" [(ngModel)]="lozinka" placeholder="Unesite lozinku">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tip</label>
+                <select class="form-select" id="tip" [(ngModel)]="tip">
+                    <option value="student">Student</option>
+                    <option value="nastavnik">Nastavnik</option>
+                </select>
+            </div>
+            <p class="text-danger text-center">{{this.poruka}}</p>
+            <button class="btn btn-primary" (click)="login()">Uloguj se</button>
+        </div>
+    </div>
+</body>
+</html>

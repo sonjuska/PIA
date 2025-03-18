@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Student</h1>
+            <button class="btn btn-danger btn-logout" (click)="odjava()">Odjava</button>
+        </div>
+        <div class="mb-4 text-center">
+            <h2>{{korisnik.ime}} {{korisnik.prezime}} ({{korisnik.korime}})</h2>
+        </div>
+        <div>
+            <h3>Aktivnosti</h3>
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Naziv</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (a of aktivnosti; track a.id) {
+                        <tr>
+                            <td>{{a.id}}</td>
+                            <td>{{a.naziv}}</td>
+                            @if (prijavljen(a.id)) {
+                                <td class="status" style="color: orange;">Prijavljen</td>
+                            } @else {
+                                <td>
+                                    <a class="btn btn-primary" [href]="'/student/' + a.id">Prijavi se</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

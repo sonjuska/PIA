@@ -1,0 +1,160 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Nov 24, 2023 at 10:04 AM
+-- Server version: 8.0.21
+-- PHP Version: 7.4.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `prijave2023`
+--
+CREATE DATABASE IF NOT EXISTS `prijave2023` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `prijave2023`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aktivnosti`
+--
+
+DROP TABLE IF EXISTS `aktivnosti`;
+CREATE TABLE IF NOT EXISTS `aktivnosti` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `naziv` varchar(150) NOT NULL,
+  `datum_vreme` varchar(150) NOT NULL,
+  `napravio` varchar(50) NOT NULL,
+  `status` int NOT NULL,
+  `Sala1` int NOT NULL,
+  `Sala2` int NOT NULL,
+  `Sala3` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk-korisnici` (`napravio`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `aktivnosti`
+--
+
+INSERT INTO `aktivnosti` (`id`, `naziv`, `datum_vreme`, `napravio`, `status`, `Sala1`, `Sala2`, `Sala3`) VALUES
+(1, 'Prvi kolokvijum iz PIA', 'subota, 25.11. u 12:30', 'sanja', 1, 3, 5, 0),
+(2, 'PPK prezentacije', 'bice objavljeno nakon prijava', 'jelica', 1, -1, 5, 1),
+(3, 'Lab 1 iz Testiranja softvera', '17.11.2023. 18:00', 'drazen', 0, -1, 3, 2),
+(4, 'Demonstratura ASP2', 'utorak, 28.11. u 08:30', 'sanja', 1, 5, 5, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `korisnici`
+--
+
+DROP TABLE IF EXISTS `korisnici`;
+CREATE TABLE IF NOT EXISTS `korisnici` (
+  `korisnicko_ime` varchar(50) NOT NULL,
+  `lozinka` varchar(50) NOT NULL,
+  `ime` varchar(50) NOT NULL,
+  `prezime` varchar(50) NOT NULL,
+  `tip` varchar(50) NOT NULL,
+  PRIMARY KEY (`korisnicko_ime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `korisnici`
+--
+
+INSERT INTO `korisnici` (`korisnicko_ime`, `lozinka`, `ime`, `prezime`, `tip`) VALUES
+('ana', 'ana123', 'Ana', 'Andric', 'student'),
+('drazen', 'drazen123', 'Drazen', 'Draskovic', 'nastavnik'),
+('jelica', 'jelica123', 'Jelica', 'Cincovic', 'nastavnik'),
+('joka', 'joka123', 'Jovana', 'Jovanovic', 'student'),
+('laki', 'laki123', 'Lazar', 'Lazic', 'student'),
+('maja', 'maja123', 'Maja', 'Maric', 'student'),
+('mika', 'mika123', 'Milan', 'Milovanovic', 'student'),
+('pera', 'pera123', 'Petar', 'Peric', 'student'),
+('sanja', 'sanja123', 'Sanja', 'Radosavljevic', 'nastavnik');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prijave`
+--
+
+DROP TABLE IF EXISTS `prijave`;
+CREATE TABLE IF NOT EXISTS `prijave` (
+  `student` varchar(50) NOT NULL,
+  `aktivnost` int NOT NULL,
+  `sala` varchar(50) NOT NULL,
+  UNIQUE KEY `student` (`student`,`aktivnost`),
+  KEY `student_2` (`student`),
+  KEY `aktivnost` (`aktivnost`),
+  KEY `sala` (`sala`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `prijave`
+--
+
+INSERT INTO `prijave` (`student`, `aktivnost`, `sala`) VALUES
+('ana', 1, 'Sala1'),
+('maja', 1, 'Sala1'),
+('mika', 3, 'Sala2'),
+('pera', 3, 'Sala2'),
+('joka', 1, 'Sala3'),
+('laki', 1, 'Sala3'),
+('laki', 2, 'Sala3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sale`
+--
+
+DROP TABLE IF EXISTS `sale`;
+CREATE TABLE IF NOT EXISTS `sale` (
+  `naziv` varchar(50) NOT NULL,
+  `broj_mesta` int NOT NULL,
+  PRIMARY KEY (`naziv`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sale`
+--
+
+INSERT INTO `sale` (`naziv`, `broj_mesta`) VALUES
+('Sala1', 5),
+('Sala2', 5),
+('Sala3', 2);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `aktivnosti`
+--
+ALTER TABLE `aktivnosti`
+  ADD CONSTRAINT `fk_nastavnik_aktivnost` FOREIGN KEY (`napravio`) REFERENCES `korisnici` (`korisnicko_ime`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `prijave`
+--
+ALTER TABLE `prijave`
+  ADD CONSTRAINT `fk_aktivnost_prijava` FOREIGN KEY (`aktivnost`) REFERENCES `aktivnosti` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_sala_prijava` FOREIGN KEY (`sala`) REFERENCES `sale` (`naziv`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_student_prijava` FOREIGN KEY (`student`) REFERENCES `korisnici` (`korisnicko_ime`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
