@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4e1c1;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Ensure the body takes up the full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the content vertically and horizontally */
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 900px;
+    text-align: center;
+    border: 2px solid #6a4e23;
+    box-sizing: border-box; /* Ensure padding doesn't affect overall width */
+}
+
+h1 {
+    font-size: 32px;
+    color: #6a4e23;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 24px;
+    color: #6a4e23;
+    margin-bottom: 15px;
+}
+
+.text-danger {
+    color: red;
+    font-size: 16px;
+}
+
+
+input.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #6a4e23;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.in{
+    width: 80%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #6a4e23;
+    border-radius: 4px;
+    margin-top: 5px;
+    background-color: #f4e1c1;
+    
+}
+
+

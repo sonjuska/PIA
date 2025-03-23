@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prodavac</title>
+</head>
+<body>
+    <div class="container">
+        <h1>PRODAVAC</h1>
+        <span class="text-danger">{{this.message}}</span>
+        <div>
+            <h3>Aukcije</h3>
+            @if(sveAukcije.length>0){
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Aukcija</th>
+                            <th>Pocetak</th>
+                            <th>Kraj</th>
+                            <th>Kupljene umetnine</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(a of sveAukcije; track a.idA){
+                            <tr [style.color]="in(a)">
+                                <td>{{a.naziv}}</td>
+                                <td>{{a.pocetak}}</td>
+                                <td>{{a.kraj}}</td>
+                                @if (in(a)=="red") {
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                @for(u of kupljeneUmetnine; track u.idU){
+                                                    @if(u.idA==a.idA){
+                                                        <tr>
+                                                            <td>{{u.naziv}}</td>
+                                                            <td>{{u.vlasnik}}</td>
+                                                            <td>{{u.ponuda}}</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }@else {
+                <h3 class="text-danger">Trenutno nema aukcija u bazi.</h3>
+            }
+        </div>
+        <br>
+        <button class="btn-custom" (click)="logout()">Logout</button>
+    </div>
+</body>
+</html>

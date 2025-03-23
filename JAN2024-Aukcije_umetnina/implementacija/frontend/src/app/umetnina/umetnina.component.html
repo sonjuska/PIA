@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umetnine</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Umetnine</h1>
+        <button class="btn-custom" (click)="nazad()">Nazad</button> 
+        <br/>
+        <span class="text-danger">{{message}}</span>
+        
+        <div>
+            <h3>Aukcija umetnina</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Naziv umetnine</th>
+                        <th>Ponuda</th>
+                        <th>Vlasnik</th>
+                        <th>Ponudi</th>
+                        <th>Potvrdi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (umetnine.length > 0) {
+                        @for(u of umetnine; track u.idU) {
+                            <tr>
+                                <td>{{u.naziv}}</td>
+                                <td>{{u.ponuda}}</td>
+                                <td>{{u.vlasnik}}</td>
+                                <td><input type="number" [(ngModel)]="u.ponuda" class="in" placeholder="Ponudi"></td>
+                                <td><button class="btn-custom" (click)="Potvrdi(u.ponuda, u.idU, u.idA, u.naziv)">Potvrdi ponudu</button></td>
+                            </tr>
+                        }
+                    }@else {
+                        <tr>
+                            <td colspan="5" class="text-center text-danger">Trenutno nema umetnina.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

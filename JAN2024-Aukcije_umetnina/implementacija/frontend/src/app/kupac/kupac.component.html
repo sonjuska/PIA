@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kupac</title>
+</head>
+<body>
+    <div class="container">
+        <h1>KUPAC</h1>
+        <span class="text-danger">{{this.message}}</span>
+        <h3>
+            {{this.korisnik.firstname}} 
+            {{this.korisnik.lastname}}
+            {{this.korisnik.mail}}
+        </h3>
+        <br>
+        <div>
+            <h3>Aukcije</h3>
+            @if (aktivneAukcije.length>0) {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Aukcija</th>
+                            <th>Pocetak</th>
+                            <th>Kraj</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(a of aktivneAukcije; track a.idA){
+                            <tr>
+                                <td class="umetnina"(click)="detalji(a.idA)">{{a.naziv}} </td>
+                                <td>{{a.pocetak}}</td>
+                                <td>{{a.kraj}}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }@else {
+                <h3 class="text-danger">Trenutno nema aktivnih aukcija.</h3>
+            }
+        </div>
+        <br>
+        <div>
+            <h3>Kupljene umetnine</h3>
+            @if (kupljeneUmetnine.length>0) {
+                <table class="table table-bordered">
+                    <tbody>
+                        @for(k of kupljeneUmetnine; track k.idA){
+                            <tr>
+                                <td>{{k.naziv}}</td>
+                                <td>{{k.ponuda}}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }@else {
+                <h3 class="text-danger">Trenutno nema kupljenih umetnina.</h3>
+            }
+        </div>
+        <button class="btn-custom" (click)="logout()">Izloguj se</button>
+    </div>
+</body>
+</html>

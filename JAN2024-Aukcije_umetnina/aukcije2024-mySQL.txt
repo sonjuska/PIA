@@ -1,0 +1,122 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 22, 2024 at 09:57 AM
+-- Server version: 8.0.21
+-- PHP Version: 7.4.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `aukcije2024`
+--
+CREATE DATABASE IF NOT EXISTS `aukcije2024` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `aukcije2024`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aukcije`
+--
+
+DROP TABLE IF EXISTS `aukcije`;
+CREATE TABLE IF NOT EXISTS `aukcije` (
+  `idA` int NOT NULL,
+  `naziv` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `pocetak` datetime NOT NULL,
+  `kraj` datetime NOT NULL,
+  PRIMARY KEY (`idA`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `aukcije`
+--
+
+INSERT INTO `aukcije` (`idA`, `naziv`, `pocetak`, `kraj`) VALUES
+(1, 'Aukcija Lepenski vir', '2024-01-08 06:00:00', '2024-01-12 20:00:00'),
+(2, 'Aukcija Gamzigrad', '2024-01-19 06:00:00', '2024-01-24 13:45:00'),
+(3, 'Aukcija Viminacijum', '2024-01-17 06:00:00', '2024-01-22 13:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `korisnici`
+--
+
+DROP TABLE IF EXISTS `korisnici`;
+CREATE TABLE IF NOT EXISTS `korisnici` (
+  `korisnicko_ime` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `lozinka` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `ime` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `prezime` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `mejl` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `tip` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`korisnicko_ime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `korisnici`
+--
+
+INSERT INTO `korisnici` (`korisnicko_ime`, `lozinka`, `ime`, `prezime`, `mejl`, `tip`) VALUES
+('admin', 'admin123', 'Admin', 'Admin', 'admin@gmail.com', 'prodavac'),
+('mika', 'mika123', 'Mitar', 'Mikic', 'mika@gmail.com', 'kupac'),
+('pera', 'pera123', 'Petar', 'Petrovic', 'pera@gmail.com', 'kupac'),
+('zika', 'zika123', 'Zile', 'Markovic', 'zika@gmail.com', 'kupac');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `umetnine`
+--
+
+DROP TABLE IF EXISTS `umetnine`;
+CREATE TABLE IF NOT EXISTS `umetnine` (
+  `idU` int NOT NULL,
+  `idA` int NOT NULL,
+  `naziv` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `ponuda` int DEFAULT NULL,
+  `vlasnik` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`idU`),
+  KEY `aukcija` (`idA`),
+  KEY `vlasnik` (`vlasnik`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `umetnine`
+--
+
+INSERT INTO `umetnine` (`idU`, `idA`, `naziv`, `ponuda`, `vlasnik`) VALUES
+(1, 1, 'Danubius', 500, 'pera'),
+(2, 1, 'Vodena vila', 1500, 'pera'),
+(3, 1, 'Adam', NULL, NULL),
+(4, 2, 'Mozaik', 2500, 'zika'),
+(5, 2, 'Tetrarh', NULL, NULL),
+(6, 3, 'Novcic', 150, 'mika'),
+(7, 3, 'Kazan', NULL, NULL);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `umetnine`
+--
+ALTER TABLE `umetnine`
+  ADD CONSTRAINT `aukcija` FOREIGN KEY (`idA`) REFERENCES `aukcije` (`idA`),
+  ADD CONSTRAINT `vlasnik` FOREIGN KEY (`vlasnik`) REFERENCES `korisnici` (`korisnicko_ime`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
