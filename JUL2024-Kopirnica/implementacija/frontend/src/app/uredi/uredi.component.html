@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uredi zahtev</title>
+</head>
+<body>
+    <h1>Uredi zahtev</h1>
+    <button (click)="nazad()">Nazad</button> <br>
+    <div class="edit-container">
+        <h4>{{zahtev.naziv}}</h4>
+        <div>
+            <h5>Opcije:</h5>
+            <table>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Kategorija</th>
+                    <th>Cena</th>
+                    <th>Selektovano</th>
+                </tr>
+                @for(o of opcije;track o.naziv){
+                    <tr>
+                        <td>{{o.naziv}}</td>
+                        <td>{{o.kategorijausluge}}</td>
+                        <td>{{o.cena}}</td>
+                        <td><input type="checkbox" (change)="toggleOpcija(o)" [checked]="selektovaneOpcije[o.kategorijausluge] === o.naziv"></td>
+                    </tr>
+                }
+            </table>
+            <span>{{message}}</span><br>
+            <button (click)="azurirajZahtev()">Ažuriraj zahtev</button>
+        </div>
+    </div>
+</body>
+</html>

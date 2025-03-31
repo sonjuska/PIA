@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radnik</title>
+</head>
+<body>
+    <h1>Radnik</h1><br>
+    <button (click)="logout()">Izloguj se</button>
+    <div class="radnik-container">
+        <h2>Novi zahtevi</h2>
+        <table>
+            <tr>
+                <th>RB</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Naziv knjige</th>
+                <th>Opcije</th>
+                <th>Racun</th>
+                <th>Datum</th>
+                <th>Status</th>
+            </tr>
+            @for(z of zahtevi; track z.idZ){
+                <tr>
+                    <td>{{z.idZ}}</td>
+                    <td>{{z.ime}}</td>
+                    <td>{{z.prezime}}</td>
+                    <td>{{z.naziv}}</td>
+                    <td>{{z.opcije}}</td>
+                    <td>{{z.racun}}</td>
+                    <td>{{z.datum}}</td>
+                    <td>{{z.status}}</td>
+                    <td><button (click)="prihvati(z)">Prihvati</button></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="radnik-container">
+        <h2>Opcije</h2>
+        <table>
+            <tr>
+                <th>Naziv</th>
+                <th>Kategorija usluge</th>
+                <th>Cena</th>
+            </tr>
+            @for(o of opcije; track $index){
+                <tr>
+                    <td>{{o.naziv}}</td>
+                    <td>{{o.kategorijausluge}}</td>
+                    <td>{{o.cena}}</td>
+                    <td><button (click)="obrisi(o)">Obrisi</button></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <span>{{message}}</span>
+</body>
+</html>

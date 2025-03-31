@@ -1,0 +1,90 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+CREATE DATABASE IF NOT EXISTS `kopirnica2024` DEFAULT CHARACTER SET utf16 COLLATE utf16_bin;
+USE `kopirnica2024`;
+
+DROP TABLE IF EXISTS `knjige`;
+CREATE TABLE IF NOT EXISTS `knjige` (
+  `idK` int NOT NULL AUTO_INCREMENT,
+  `klijent` varchar(45) COLLATE utf16_bin NOT NULL,
+  `naziv` varchar(45) COLLATE utf16_bin NOT NULL,
+  `strane` int NOT NULL,
+  PRIMARY KEY (`idK`),
+  KEY `klijent` (`klijent`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+INSERT INTO `knjige` (`idK`, `klijent`, `naziv`, `strane`) VALUES
+(1, 'maja', 'Knjiga 1', 123),
+(2, 'maja', 'Knjiga 2', 333),
+(3, 'mare', 'Knjiga 3', 100),
+(4, 'nikola', 'Knjiga 4', 30);
+
+DROP TABLE IF EXISTS `korisnici`;
+CREATE TABLE IF NOT EXISTS `korisnici` (
+  `kor_ime` varchar(45) COLLATE utf16_bin NOT NULL,
+  `lozinka` varchar(45) COLLATE utf16_bin NOT NULL,
+  `ime` varchar(45) COLLATE utf16_bin NOT NULL,
+  `prezime` varchar(45) COLLATE utf16_bin NOT NULL,
+  `mejl` varchar(45) COLLATE utf16_bin NOT NULL,
+  `tip` varchar(45) COLLATE utf16_bin NOT NULL,
+  PRIMARY KEY (`kor_ime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+INSERT INTO `korisnici` (`kor_ime`, `lozinka`, `ime`, `prezime`, `mejl`, `tip`) VALUES
+('ana', 'ana123', 'Ana', 'Anic', 'ana@gmail.com', 'radnik'),
+('maja', 'maja123', 'Maja', 'Majic', 'maja@gmail.com', 'klijent'),
+('mare', 'mare123', 'Marko', 'Markovic', 'mare@gmail.com', 'klijent'),
+('nikola', 'nikola123', 'Nikola', 'Nikolic', 'nikola@gmail.com', 'klijent');
+
+DROP TABLE IF EXISTS `opcijekopirnice`;
+CREATE TABLE IF NOT EXISTS `opcijekopirnice` (
+  `naziv` varchar(45) COLLATE utf16_bin NOT NULL,
+  `kategorijausluge` varchar(45) COLLATE utf16_bin NOT NULL,
+  `cena` double NOT NULL,
+  PRIMARY KEY (`naziv`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+INSERT INTO `opcijekopirnice` (`naziv`, `kategorijausluge`, `cena`) VALUES
+('Crno/bela Štampa', 'kolorizovano', 3),
+('Format A2', 'format', 10),
+('Spirala', 'koricenje', 105.6),
+('Tvrd povez', 'koricenje', 300.5),
+('Štampa u boji', 'kolorizovano', 7);
+
+DROP TABLE IF EXISTS `zahtevi`;
+CREATE TABLE IF NOT EXISTS `zahtevi` (
+  `idZ` int NOT NULL AUTO_INCREMENT,
+  `klijent` varchar(45) COLLATE utf16_bin NOT NULL,
+  `knjiga` int NOT NULL,
+  `opcije` varchar(145) COLLATE utf16_bin NOT NULL,
+  `racun` double NOT NULL,
+  `datum` date NOT NULL,
+  `status` varchar(45) COLLATE utf16_bin NOT NULL,
+  PRIMARY KEY (`idZ`),
+  KEY `klijenti` (`klijent`),
+  KEY `knjiga` (`knjiga`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+INSERT INTO `zahtevi` (`idZ`, `klijent`, `knjiga`, `opcije`, `racun`, `datum`, `status`) VALUES
+(1, 'maja', 1, 'Crno/bela Štampa,Format A2', 1599, '2024-06-26', 'nov'),
+(2, 'maja', 2, 'Štampa u boji', 2331, '2024-06-16', 'nov'),
+(3, 'mare', 3, 'Crno/bela Štampa', 300, '2024-06-27', 'prihvacen');
+
+
+ALTER TABLE `knjige`
+  ADD CONSTRAINT `klijent` FOREIGN KEY (`klijent`) REFERENCES `korisnici` (`kor_ime`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `zahtevi`
+  ADD CONSTRAINT `klijenti` FOREIGN KEY (`klijent`) REFERENCES `korisnici` (`kor_ime`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `knjiga` FOREIGN KEY (`knjiga`) REFERENCES `knjige` (`idK`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,0 +1,11 @@
+.detalj-container{
+    margin: 20px auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocetna</title>
+</head>
+<body>
+    <h1>Početna stranica</h1>
+    <div class="login-container">
+        <label for="korime">Korisnicko ime:</label><br>
+        <input id="korime" type="text" [(ngModel)]="korime">
+        <br>
+        <label for="lozinka">Lozinka:</label><br>
+        <input id="lozinka" type="password" [(ngModel)]="lozinka">
+        <hr>
+        <span>{{message}}</span>
+        <button (click)="login()" style="margin-right: 5%;">Uloguj se</button>
+    </div>
+</body>
+</html>

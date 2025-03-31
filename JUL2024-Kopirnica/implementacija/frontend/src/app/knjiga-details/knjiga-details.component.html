@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Detalji knjige</h1>
+
+<div class="detalj-container">
+    <label for="knjiga.naziv">Naziv:</label>
+    <input type="text" [(ngModel)]="knjiga.naziv">
+    <label for="knjiga.strane">Broj strana:</label>
+    <input type="number" [(ngModel)]="knjiga.strane">
+    <button (click)="azurirajKnjigu()">Azuriraj knjigu</button>
+    <br>
+</div>
+    <span>{{message}}</span><br>
+    <button (click)="nazad()">Nazad</button>
+
+
+
+</body>
+</html>

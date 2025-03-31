@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klijent - Kopirnica</title>
+</head>
+<body>
+    <h1>Klijent</h1><br>
+    <button (click)="logout()">Izloguj se</button>
+    <div>
+        <p style="font-size: large;">{{k.ime}} {{k.prezime}} | {{k.mejl}}</p>
+        @if(knjige.length>0){
+        <h2>Knjige</h2>
+        <table>
+            <tr>
+                <th>RB</th>
+                <th>Naziv</th>
+                <th>Strane</th>
+                <th>Akcija</th>
+            </tr>
+            @for(knj of knjige; track knj.idK){
+            <tr>
+                <td>{{knj.idK}}</td>
+                <td>{{knj.naziv}}</td>
+                <td>{{knj.strane}}</td>
+                <td><button (click)="izmeni(knj)">Izmeni</button></td>
+            </tr>
+            }
+        </table>
+        }@else {
+        <span style="color: blue;">{{message}}</span>
+        }
+        <h2>Zahtevi</h2>
+        @for(z of zahtevi; track z.idZ){
+        <span [class]="boja(z.status)">{{z.naziv}}</span>
+        <span><button (click)="uredi(z)">Uredi</button></span>
+        <ul>
+            @for(o of z.opcije; track $index){
+            <li>{{o}}</li>
+            }
+        </ul>
+        }
+    </div>
+</body>
+</html>
