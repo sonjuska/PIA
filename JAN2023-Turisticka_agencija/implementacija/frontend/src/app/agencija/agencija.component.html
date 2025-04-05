@@ -1,0 +1,81 @@
+
+<header>
+    <h1>Agencija</h1>
+    <button class="logout-btn" (click)="logout()">Izloguj se</button>
+</header>
+
+<main>
+    <section class="agency-info">
+        <h2>{{agencija.naziv}}</h2>
+        <p>PIB: {{agencija.pib}}</p>
+    </section>
+    
+    <section class="services">
+        @if(usluge.length<=0){
+            <p class="error-message">{{message}}</p>
+        }@else{
+            <table class="service-table">
+                <thead>
+                    <tr>
+                        <th>Tip</th>
+                        <th>Lokacija od</th>
+                        <th>Lokacija do</th>
+                        <th>Period</th>
+                        <th>Broj preostalih mesta</th>
+                        <th>Cena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(u of usluge; track u.id){
+                        <tr>
+                            <td>{{u.tip}}</td>
+                            <td>{{u.lokacija_od}}</td>
+                            <td>{{u.lokacija_do}}</td>
+                            <td>{{u.period}}</td>
+                            <td [style.background-color]="zuta(u.broj_mesta)">{{u.broj_mesta}}</td>
+                            <td>{{u.cena}}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </section>
+
+    <section class="add-service">
+        <h3>Dodaj novu uslugu</h3>
+        <div class="form-group">
+            <label for="tip">Tip:</label>
+            <select id="tip" [(ngModel)]="tip" [style.background-color]="boja()">
+                <option value="aviokarta">Avio karta</option>
+                <option value="brzivoz">Brzi voz</option>
+                <option value="hotel">Hotel</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lokacija_od">Lokacija od:</label>
+            <input type="text" id="lokacija_od" [(ngModel)]="lokacija_od" [disabled]="tip=='hotel'" [style.background-color]="boja()">
+        </div>
+        <div class="form-group">
+            <label for="lokacija_do">Lokacija do:</label>
+            <input type="text" id="lokacija_do" [(ngModel)]="lokacija_do" [style.background-color]="boja()">
+        </div>
+        <div class="form-group">
+            <label for="period">Period:</label>
+            <input type="text" id="period" [(ngModel)]="period">
+        </div>
+        <div class="form-group">
+            <label for="cena">Cena:</label>
+            <input type="number" id="cena" step="0.01" [(ngModel)]="cena" [style.background-color]="boja()">
+        </div>
+        <div class="form-group">
+            <label for="broj_mesta">Broj mesta:</label>
+            <input type="number" id="broj_mesta" [(ngModel)]="broj_mesta" [style.background-color]="boja()">
+        </div>
+        <span class="error-message">{{message2}}</span>
+        <button class="add-btn" (click)="dodaj(tip, lokacija_od, lokacija_do, period, cena, broj_mesta)">Dodaj uslugu</button>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Turistička Agencija. Sva prava zadržana.</p>
+</footer>

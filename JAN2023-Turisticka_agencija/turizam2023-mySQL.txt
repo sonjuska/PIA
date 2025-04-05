@@ -1,0 +1,177 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 22, 2023 at 08:35 PM
+-- Server version: 8.0.21
+-- PHP Version: 7.4.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+SET @@global.time_zone='+00:00';
+SET @@session.time_zone='+00:00';
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `turizam23`
+--
+DROP DATABASE IF EXISTS `turizam23`;
+CREATE DATABASE IF NOT EXISTS `turizam23` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `turizam23`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agencija`
+--
+
+DROP TABLE IF EXISTS `agencija`;
+CREATE TABLE IF NOT EXISTS `agencija` (
+  `korisnickoime` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `lozinka` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `naziv` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `PIB` int NOT NULL,
+  PRIMARY KEY (`korisnickoime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `agencija`
+--
+
+INSERT INTO `agencija` (`korisnickoime`, `lozinka`, `naziv`, `PIB`) VALUES
+('airfrance', 'Agencija123', 'Air France', 200305421),
+('airserbia', 'Agencija123', 'Air Serbia', 100001765),
+('filip', 'Agencija123', 'Filip Travel', 100096093),
+('kontiki', 'Agencija123', 'Kontiki Travel', 107932469),
+('pruge', 'Agencija123', 'ЕЅeleznice Srbije', 100200300);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kupljeneusluge`
+--
+
+DROP TABLE IF EXISTS `kupljeneusluge`;
+CREATE TABLE IF NOT EXISTS `kupljeneusluge` (
+  `id_posete` int NOT NULL AUTO_INCREMENT,
+  `id_usluge` int NOT NULL,
+  `id_putnik` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `broj_saputnika` int NOT NULL,
+  PRIMARY KEY (`id_posete`),
+  KEY `id_usluge` (`id_usluge`),
+  KEY `id_putnik` (`id_putnik`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `kupljeneusluge`
+--
+
+INSERT INTO `kupljeneusluge` (`id_posete`, `id_usluge`, `id_putnik`, `broj_saputnika`) VALUES
+(1, 1, 'jeca', 1),
+(2, 14, 'jeca', 1),
+(3, 2, 'goran', 2),
+(4, 7, 'olja', 1),
+(5, 7, 'tijana', 0),
+(6, 16, 'tijana', 1),
+(7, 10, 'tijana', 3),
+(8, 9, 'tijana', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `putnik`
+--
+
+DROP TABLE IF EXISTS `putnik`;
+CREATE TABLE IF NOT EXISTS `putnik` (
+  `korisnickoime` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `lozinka` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `ime_prezime` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `imejl` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `lokacija_trenutna` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `novac` double NOT NULL,
+  PRIMARY KEY (`korisnickoime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `putnik`
+--
+
+INSERT INTO `putnik` (`korisnickoime`, `lozinka`, `ime_prezime`, `imejl`, `lokacija_trenutna`, `novac`) VALUES
+('goran', 'Sifra123', 'Goran NovakoviД‡', 'goranche@lovacrestoran.rs', 'Rim', 44295.5),
+('jeca', 'Sifra123', 'Jelena PetroviД‡', 'jelena@sorbonne.fr', 'Singapur', 105000),
+('milos', 'Sifra123', 'MiloЕЎ MarjanoviД‡', 'misha@telekom.admin.rs', 'Beograd', 55660),
+('olja', 'Sifra123', 'Olivera GavriloviД‡', 'olja@levi9.rs', 'Novi Sad', 18230),
+('tijana', 'Sifra123', 'Tijana MarkoviД‡', 'tijana@zastava-fiat.rs', 'Kragujevac', 33650);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usluga`
+--
+
+DROP TABLE IF EXISTS `usluga`;
+CREATE TABLE IF NOT EXISTS `usluga` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `idAgencije` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `lokacija_od` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lokacija_do` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `tip` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `period` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `cena` double NOT NULL,
+  `broj_mesta` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idAgencije` (`idAgencije`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `usluga`
+--
+
+INSERT INTO `usluga` (`id`, `idAgencije`, `lokacija_od`, `lokacija_do`, `tip`, `period`, `cena`, `broj_mesta`) VALUES
+(1, 'airserbia', 'Beograd', 'Pariz', 'aviokarta', 'januar-maj 2023', 13955, 12),
+(2, 'airserbia', 'Beograd', 'Rim', 'aviokarta', 'januar-april 2023', 11950.5, 13),
+(3, 'kontiki', 'Beograd', 'Pariz', 'aviokarta', 'jun/jul 2023', 16677, 6),
+(4, 'kontiki', 'Beograd', 'Pariz', 'aviokarta', 'avgust/septembar 2023', 15550, 15),
+(5, 'airserbia', 'Pariz', 'Beograd', 'aviokarta', 'januar-maj 2023', 18990, 11),
+(6, 'airserbia', 'Pariz', 'Beograd', 'aviokarta', 'mart-april 2023', 9980.5, 4),
+(7, 'pruge', 'Beograd', 'Novi Sad', 'brzivoz', 'cele godine', 1600, 22),
+(8, 'pruge', 'Novi Sad', 'Beograd', 'brzivoz', 'cele godine', 1500, 18),
+(9, 'pruge', 'Beograd', 'Kragujevac', 'brzivoz', 'svake srede i petka', 1250, 3),
+(10, 'pruge', 'Kragujevac', 'Beograd', 'brzivoz', 'svake srede i petka', 1275, 6),
+(11, 'filip', NULL, 'Beograd', 'hotel', 'cele godine', 3400, 15),
+(12, 'airserbia', NULL, 'Pariz', 'hotel', 'januar-mart 2023', 7650, 7),
+(13, 'kontiki', NULL, 'Rim', 'hotel', 'cele godine', 6200, 15),
+(14, 'airfrance', 'Pariz', 'Singapur', 'aviokarta', 'cele godine', 75005, 4),
+(15, 'airfrance', 'Pariz', 'Rim', 'aviokarta', 'prolece i leto 2023', 15000, 6),
+(16, 'pruge', 'Novi Sad', 'Kragujevac', 'brzivoz', 'cele godine', 2200, 10),
+(17, 'pruge', 'Kragujevac', 'Novi Sad', 'brzivoz', 'januar-oktobar', 2200, 11);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `kupljeneusluge`
+--
+ALTER TABLE `kupljeneusluge`
+  ADD CONSTRAINT `kupljeneusluge_ibfk_1` FOREIGN KEY (`id_putnik`) REFERENCES `putnik` (`korisnickoime`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kupljeneusluge_ibfk_2` FOREIGN KEY (`id_usluge`) REFERENCES `usluga` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `usluga`
+--
+ALTER TABLE `usluga`
+  ADD CONSTRAINT `usluga_ibfk_1` FOREIGN KEY (`idAgencije`) REFERENCES `agencija` (`korisnickoime`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

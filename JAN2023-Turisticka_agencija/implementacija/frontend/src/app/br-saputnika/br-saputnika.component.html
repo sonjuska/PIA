@@ -1,0 +1,14 @@
+<main>
+    <div class="top">
+        <h1 style=>Broj saputnika</h1>
+    </div>
+    <div class="brSap">
+      <label for="brSap">Broj saputnika: </label><input type="number" [(ngModel)]="brSap" id="brSap"><br><br>
+      <span class="error-message">{{message}}</span>
+      <button (click)="kupi()">Kupi uslugu</button>
+    </div>
+    <div class="top">
+        <button (click)="nazad()">Nazad</button> 
+    </div>
+
+</main>

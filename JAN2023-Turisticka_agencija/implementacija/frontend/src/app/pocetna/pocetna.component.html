@@ -1,0 +1,25 @@
+<header>
+    <h1>Dobrodošli u našu turističku agenciju</h1>
+</header>
+
+<main>
+    <section class="login">
+        <h2>Prijava</h2>
+        <div class="login-form">
+            Korisničko ime: <input type="text" [(ngModel)]="korime">
+            Lozinka: <input type="password" [(ngModel)]="lozinka">
+            <br><br>
+            Tip: &nbsp;
+            <label><input type="radio" name="tip" value="agencija" [(ngModel)]="agencija"> Agencija</label>
+            <label><input type="radio" name="tip" value="putnik" [(ngModel)]="putnik"> Putnik</label>
+            <br>
+            <span class="error-message">{{message}}</span>
+            <button (click)="login()">Log in</button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Turistička Agencija. Sva prava zadržana.</p>
+</footer>
+

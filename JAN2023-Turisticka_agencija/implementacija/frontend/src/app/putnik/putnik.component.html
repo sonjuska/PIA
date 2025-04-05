@@ -1,0 +1,119 @@
+
+<header>
+    <h1>Profil Putnika</h1>
+    <button class="logout-btn" (click)="logout()">Izloguj se</button>
+</header>
+
+<main>
+    <section class="profile">
+        <h2>Podaci o putniku</h2>
+        <p><b>Ime i prezime:</b> {{korisnik.ime_prezime}}</p>
+        <p><b>E-mail:</b> {{korisnik.imejl}}</p>
+        <p><b>Novac:</b> {{korisnik.novac}}</p>
+    </section>
+    
+    <hr>
+    
+    <section class="locations">
+        <h3>Lokacije</h3>
+        @if(lokacije.length>0){
+            <ul>
+                <li>
+                    <input type="text" [(ngModel)]="trenutna_lokacija" [value]="trenutna_lokacija" (change)="promeniTrenutnu()"> - <b>trenutna lokacija</b> 
+                </li>
+                <br>
+                <b>Posećene lokacije:</b>
+                <li *ngFor="let l of lokacije">{{l}}</li>
+            </ul>
+        }@else {
+            <span class="error-message">{{message}}</span>
+        }
+    </section>
+    
+    <hr>
+    
+    <section class="purchased-services">
+        <h3>Kupljene usluge</h3>
+        @if(kupljene.length>0){
+            <table>
+                <tr>
+                    <th>Naziv agencije</th>
+                    <th>Tip usluge</th>
+                    <th>Destinacija</th>
+                    <th>Broj saputnika</th>
+                </tr>
+                <tr *ngFor="let k of kupljene">
+                    <td>{{k['naziv']}}</td>
+                    <td>{{k['tip']}}</td>
+                    @if(k.lokacija_od){
+                        <td>{{k['lokacija_od'] || ''}} - {{k['lokacija_do']}}</td>
+                    }@else{
+                        <td>{{k['lokacija_do']}}</td>
+                    }
+                    <td>{{k['broj_saputnika']}}</td>
+                </tr>
+            </table>
+        }@else {
+            <span class="error-message">{{message}}</span>
+        }
+    </section>
+    
+    <hr>
+    
+    <section class="services">
+        <h3>Usluge</h3>
+        @if(filtriraneUsluge.length>0){
+            <table>
+                <tr>
+                    <th>RB</th>
+                    <th>Destinacija od</th>
+                    <th>Destinacija do</th>
+                    <th>Period</th>
+                    <th>Tip</th>
+                    <th>Cena</th>
+                    <th>Broj mesta</th>
+                </tr>
+                <tr *ngFor="let f of filtriraneUsluge">
+                    <td>{{f.id}}</td>
+                    <td>{{f.lokacija_od}}</td>
+                    <td>{{f.lokacija_do}}</td>
+                    <td>{{f.period}}</td>
+                    <td>{{f.tip}}</td>
+                    <td (click)="kupi(f.id)" id="kupi">{{f.cena}}</td>
+                    <td>{{f.broj_mesta}}</td>
+                </tr>
+            </table>
+        }@else {
+            <span class="error-message">{{message}}</span>
+        }
+    </section>
+    
+    <hr>
+    
+    <section class="search-services">
+        <h3>Pretraga usluga</h3>
+        <span><label>Destinacija:<input type="text" [(ngModel)]="filterDestinacija"></label></span>&nbsp;
+        <span>
+            <label>Tip:
+            <select name="tipFilter" id="tipFilter" multiple [(ngModel)]="filterTip">
+                <option value="aviokarta">Avio karta</option>
+                <option value="brzivoz">Brzi voz</option>
+                <option value="hotel">Hotel</option>
+            </select>
+        </label>
+        </span>&nbsp;
+        <span>
+            <label>Cena:&nbsp;
+            od <input type="number" step="100" [(ngModel)]="od" [value]="od" min="0">&nbsp;
+            do <input type="number" step="100" [(ngModel)]="do" placeholder="max" min="0">
+        </label>
+        </span>
+        &nbsp;
+        <button (click)="pretrazi()">Pronadji</button>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Turistička Agencija. Sva prava zadržana.</p>
+</footer>
+

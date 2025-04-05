@@ -1,0 +1,17 @@
+.profile, .locations, .purchased-services, .services, .search-services {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 10px;
+}
+
+#kupi:hover{
+    background-color: rgb(37, 164, 135);
+    font-size: large;
+    font-weight: bolder;
+    color: white;
+}
+
+
+

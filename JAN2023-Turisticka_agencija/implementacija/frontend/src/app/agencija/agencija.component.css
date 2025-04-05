@@ -1,0 +1,55 @@
+.agency-info {
+    margin: 20px;
+    font-size: 18px;
+}
+
+.services {
+    margin: 20px;
+}
+
+.service-table {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+.service-table th, .service-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.service-table th {
+    background-color: #016a5c;
+    color: white;
+}
+
+.add-service {
+    background: white;
+    padding: 20px;
+    width: 50%;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin: 10px 0;
+}
+
+input, select {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-btn {
+    background-color: #1b7d6d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
